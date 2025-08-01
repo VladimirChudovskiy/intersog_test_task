@@ -2,6 +2,9 @@
 
 This repository contains a Laravel application with Docker setup for easy development.
 
+## Other documentation files
+- [Book Parser Documentation](src/documentations/parser.md) - Details on the book parsing functionality.
+
 ## Prerequisites
 
 - [Docker](https://www.docker.com/get-started)

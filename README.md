@@ -5,6 +5,9 @@ This repository contains a Laravel application with Docker setup for easy develo
 ## Other documentation files
 - [Book Parser Documentation](src/documentations/parser.md) - Details on the book parsing functionality.
 
+## API Documentation
+- localhost:8000/api/documentation - Swagger/OpenAPI documentation for the API endpoints.
+
 ## Prerequisites
 
 - [Docker](https://www.docker.com/get-started)

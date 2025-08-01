@@ -1,0 +1,377 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Book API",
+        "description": "API for managing books and authors",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/authors/{author}/books": {
+            "get": {
+                "tags": [
+                    "Author Books"
+                ],
+                "summary": "Get list of books by author",
+                "description": "Returns list of books by a specific author",
+                "operationId": "getBooksByAuthor",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "Author ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BookResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string"
+                                                },
+                                                "last": {
+                                                    "type": "string"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "from": {
+                                                    "type": "integer"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "path": {
+                                                    "type": "string"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "to": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    }
+                }
+            }
+        },
+        "/api/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get list of authors",
+                "description": "Returns list of authors with book count and optional search filters",
+                "operationId": "getAuthorsList",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Search by author name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AuthorResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string"
+                                                },
+                                                "last": {
+                                                    "type": "string"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "from": {
+                                                    "type": "integer"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "path": {
+                                                    "type": "string"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "to": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Get list of books",
+                "description": "Returns list of books with optional search filters",
+                "operationId": "getBooksList",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Search by book title",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Search by book description",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "author",
+                        "in": "query",
+                        "description": "Search by author name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "author_id",
+                        "in": "query",
+                        "description": "Search by author ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BookResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string"
+                                                },
+                                                "last": {
+                                                    "type": "string"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer"
+                                                },
+                                                "from": {
+                                                    "type": "integer"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer"
+                                                },
+                                                "path": {
+                                                    "type": "string"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer"
+                                                },
+                                                "to": {
+                                                    "type": "integer"
+                                                },
+                                                "total": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AuthorResource": {
+                "title": "Author Resource",
+                "description": "Author resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "F. Scott Fitzgerald"
+                    },
+                    "books_count": {
+                        "type": "integer",
+                        "example": 5
+                    }
+                },
+                "type": "object"
+            },
+            "BookResource": {
+                "title": "Book Resource",
+                "description": "Book resource",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "The Great Gatsby"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "A novel by F. Scott Fitzgerald"
+                    },
+                    "authors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorResource"
+                        }
+                    },
+                    "published_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-01-01T00:00:00.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Author Books",
+            "description": "API Endpoints for Books by Author"
+        },
+        {
+            "name": "Authors",
+            "description": "API Endpoints for Authors"
+        },
+        {
+            "name": "Books",
+            "description": "API Endpoints for Books"
+        }
+    ]
+}

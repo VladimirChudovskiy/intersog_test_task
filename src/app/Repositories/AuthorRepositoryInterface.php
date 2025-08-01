@@ -19,4 +19,12 @@ interface AuthorRepositoryInterface extends RepositoryInterface
      * @return mixed
      */
     public function findOrCreateByName(string $name);
+
+    /**
+     * Search authors by name with book count.
+     *
+     * @param string|null $name
+     * @return mixed
+     */
+    public function searchAuthors(?string $name = null);
 }

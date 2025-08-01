@@ -43,4 +43,21 @@ class AuthorRepository extends BaseRepository implements AuthorRepositoryInterfa
 
         return $this->model->firstOrCreate(['name' => $name]);
     }
+
+    /**
+     * Search authors by name with book count.
+     *
+     * @param string|null $name
+     * @return mixed
+     */
+    public function searchAuthors(?string $name = null)
+    {
+        $query = $this->model->withCount('books');
+
+        if ($name) {
+            $query->where('name', 'like', "%{$name}%");
+        }
+
+        return $query->paginate(10);
+    }
 }

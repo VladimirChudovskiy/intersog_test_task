@@ -1,7 +1,7 @@
 PROJECT_NAME=intersog_test_task
 SRC_DIR=src
 
-.PHONY: up down restart install laravel migrate fresh-seed logs bash build
+.PHONY: up down restart install laravel migrate fresh-seed logs bash build test test-unit test-feature docs
 
 up:
 	docker-compose up -d
@@ -32,3 +32,15 @@ bash:
 
 build:
 	docker-compose build
+
+test:
+	docker-compose exec app php artisan test
+
+test-unit:
+	docker-compose exec app php artisan test --testsuite=Unit
+
+test-feature:
+	docker-compose exec app php artisan test --testsuite=Feature
+
+docs:
+	docker-compose exec app php artisan l5-swagger:generate

@@ -111,6 +111,32 @@ Refresh database and run seeders:
 make fresh-seed
 ```
 
+### Testing
+
+Run all tests:
+```bash
+make test
+```
+
+Run only unit tests:
+```bash
+make test-unit
+```
+
+Run only feature tests:
+```bash
+make test-feature
+```
+
+### API Documentation
+
+Generate API documentation using Swagger:
+```bash
+make docs
+```
+
+After generating the documentation, you can access it at http://localhost:8000/api/documentation
+
 ## Available Make Commands
 
 | Command | Description |
@@ -125,6 +151,10 @@ make fresh-seed
 | `make logs` | Show logs from the app container |
 | `make bash` | Open a bash shell in the app container |
 | `make build` | Build Docker images for the project |
+| `make test` | Run all tests |
+| `make test-unit` | Run only unit tests |
+| `make test-feature` | Run only feature tests |
+| `make docs` | Generate API documentation using Swagger |
 
 ## Project Structure
 
